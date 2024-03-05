@@ -20,7 +20,15 @@
     </section>
 
     <section v-if = "tela === 'jogo'" id="jogo">
-      Jogo
+      <JogoForca
+        :erros="erros"
+        :palavra="palavra"
+        :dica="dica"
+        :verificarLetra="verificarLetra"
+        :etapa="etapa"
+        :letras="letras"
+        :jogar="jogar"
+      />
     </section>
 
   </div>
@@ -30,6 +38,7 @@
 <script>
 import './css/global.css'
 import FormularioJogo from './components/FormularioJogo.vue';
+import JogoForca from './components/JogoForca.vue';
 
 
 export default {
@@ -39,11 +48,14 @@ export default {
       tela: 'inicio',
       etapa: 'palavra',
       palavra: '',
-      dica:''
+      dica:'',
+      erros: 0,
+      letras: []
     }
   },
   components: {
-    FormularioJogo
+    FormularioJogo,
+    JogoForca
   },
   methods:{
     setPalavra: function (palavra) {
@@ -54,7 +66,36 @@ export default {
       this.dica = dica;
       this.tela = 'jogo';
       this.etapa = 'jogo';      
+    },
+
+    verificarLetra: function(letra){
+      return this.letras.find(item => item.toLowerCase() === letra.toLowerCase());
+    },
+
+    jogar: function(letra){
+      this.letras.push(letra);
+      this.verificarErros(letra);
+    },
+    
+    verificarErros: function(letra){
+      if(this.palavra.toLowerCase().indexOf(letra.toLowerCase()) >=0){
+        return this.verificarAcertos();
+      }
+      this.erros++;
+
+      if(this.erros===6){
+        this.etapa = 'Enforcado'
+      }
+    },
+
+    verificarAcertos: function(){
+      let letrasUnicas = [... new Set(this.palavra.split(''))];
+      if (letrasUnicas.length === (this.letras.length - this.erros)){
+        this.etapa = 'Ganhador';
+      }
+
     }
+
   }
 }
 </script>

@@ -28,6 +28,7 @@
         :etapa="etapa"
         :letras="letras"
         :jogar="jogar"
+        :jogarnovamente="jogarnovamente"
       />
     </section>
 
@@ -84,15 +85,25 @@ export default {
       this.erros++;
 
       if(this.erros===6){
-        this.etapa = 'Enforcado'
+        this.etapa = 'enforcado';
       }
     },
 
     verificarAcertos: function(){
       let letrasUnicas = [... new Set(this.palavra.split(''))];
       if (letrasUnicas.length === (this.letras.length - this.erros)){
-        this.etapa = 'Ganhador';
+        this.etapa = 'ganhador';
       }
+
+    },
+
+    jogarnovamente: function(){
+      this.palavra='';
+      this.dica='';
+      this.erros=0;
+      this.letras=[];
+      this.tela='inicio';
+      this.etapa='palavra';
 
     }
 

@@ -13,9 +13,17 @@
         />
 
         <TecladoJogo
+        v-if="etapa === 'jogo'"
         :letras="letras"
         :verificarLetra="verificarLetra"
         :jogar="jogar"
+        />
+
+        <FinalJogo
+            v-if="etapa != 'jogo'"
+            :etapa="etapa"
+            :texto="etapa === 'ganhador' ? 'Parabens >:(' : 'Tadiiinho :('"
+            :jogarnovamente="jogarnovamente"
 
         />
     
@@ -26,6 +34,7 @@
 import ForcaImage from './ForcaImage.vue'
 import PalavraForca from './PalavraForca.vue'
 import TecladoJogo from './TecladoJogo.vue'
+import FinalJogo from './FinalJogo.vue'
 
 export default {
     name: 'JogoForca',
@@ -37,6 +46,7 @@ export default {
         etapa: String,
         letras: Array,
         jogar: Function,
+        jogarnovamente: Function,
     },    
     methods:{
         
@@ -46,6 +56,7 @@ export default {
         ForcaImage,
         PalavraForca,
         TecladoJogo,
+        FinalJogo,
     }
 
 }

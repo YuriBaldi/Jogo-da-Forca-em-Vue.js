@@ -24,8 +24,8 @@
         </div>
         <div class="urna-teclado-acoes">
                 <button class="btn-branco">BRANCO</button>
-                <button class="btn-corrige">CORRIGE</button>
-                <button class="btn-confirma">CONFIRMA</button>
+                <button class="btn-corrige" @click="corrige()">CORRIGE</button>
+                <button class="btn-confirma" @click="confirmar()">CONFIRMA</button>
 
         </div>
 
@@ -38,7 +38,9 @@
 export default{
     name:"tecladoUrna",
     props: {
-        adicionaNumero: Function
+        adicionaNumero: Function,
+        corrige: Function,
+        confirmar: Function,
     }
 }
 
@@ -48,7 +50,7 @@ export default{
 <style>
 
 .urna-teclado{
-    width: 40%;
+    width: 38%;
     height: 100%;
     background-color: var(--ballot-box-keyboard-color);
     padding: 20px;

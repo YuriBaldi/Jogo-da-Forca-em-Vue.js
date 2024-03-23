@@ -2,15 +2,17 @@
   <div class="app">
     <div class="urna">
 
-      <tecladoUrna
-      :adicionaNumero="adicionaNumero"
-      />
-
       <telaUrna
       :tela="tela"
       :quantidadeNumeros="quantidadeNumeros"
       :numeroVoto="numeroVoto"
+      :candidato="candidato"
 
+      />
+      <tecladoUrna
+      :adicionaNumero="adicionaNumero"
+      :corrige="corrige"
+      :confirmar="confirmar"
       />
 
     </div>
@@ -37,6 +39,60 @@ export default {
         return false;
       }
       this.numeroVoto += ''+ numero;
+
+      this.verificarCandidato()
+    },
+
+    verificarCandidato(){
+      //voto incompleto
+      if (this.numeroVoto.length < this.quantidadeNumeros){
+        return false;
+      }
+      if (this.candidatos[this.tela][this.numeroVoto]){
+        this.candidato = this.candidatos[this.tela][this.numeroVoto];
+        return true;
+      }
+
+      this.candidato = {
+        nome:"Vladimir Putin",
+        partido:"Mother Russia",
+        imagem:'https://qph.cf2.quoracdn.net/main-qimg-824b288718f1f2a477a39b8aa1d63881-lq'
+      }
+    },
+
+    limpar(){
+      this.candidato={}
+      this.numeroVoto=''
+    },
+
+    corrige(){
+      this.limpar();
+    },
+
+    confirmar(){
+      if (this.numeroVoto.length < this.quantidadeNumeros){
+        return false;
+      }
+      return this.avancarTela();
+    },
+
+    avancarTela(){
+      if(this.tela == 'prefeito'){
+        this.tela ='vereador';
+        this.quantidadeNumeros = 5;
+        return this.limpar();
+      }
+      this.tela = 'fim';
+
+      const instancia = this;
+
+      setTimeout(() => {
+        instancia.tela = 'prefeito';
+        instancia.quantidadeNumeros = 2;
+        return instancia.limpar();
+      }, 3000);
+        
+      
     }
     
   },

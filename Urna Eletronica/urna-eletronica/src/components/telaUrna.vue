@@ -3,7 +3,7 @@
 
         <div v-if="tela !='fim'" class="urna-tela-voto">
             
-            <div class="urba-tela-voto-textos">
+            <div class="urna-tela-voto-textos">
 
                 <div class="urna-tela-voto-titulo">Seu voto para:</div>
                 <div class="urna-tela-voto-tipo">{{ tela }}</div>
@@ -17,13 +17,25 @@
 
                 </div>
 
+                <div class="urna-tela-voto-descricao">
+                    Nome:<strong> {{ candidato.nome ? candidato.nome:'_____________'  }}</strong>
+                </div>
+                <div class="urna-tela-voto-descricao">
+                    Partido:<strong> {{ candidato.partido ? candidato.partido:'_____________'}}</strong>
+                </div>
             </div>
 
-            <div class="urna-tela-voto-imagem">
+            <div v-if="candidato.imagem" class="urna-tela-voto-imagem">
+
+                <img :src="candidato.imagem">
 
             </div>
 
             <div class="urna-tela-voto-instrucoes">
+                <p>Aperte a tecla:</p>
+                <p>BRANCO para VOTAR EM BRANCO</p>
+                <p>LARANJA para CORRIGIR</p>
+                <p>VERDE para CONFIRMAR</p>
 
             </div>
         
@@ -32,6 +44,7 @@
 
 
         <div v-if="tela =='fim'" class="urna-tela-fim">
+            FIM
           
         </div>
 
@@ -46,6 +59,7 @@ export default{
         tela: String,
         numeroVoto: String,
         quantidadeNumeros: Number,
+        candidato: Object,
     }
 }
 
@@ -54,7 +68,7 @@ export default{
 <style>
 
 .urna-tela{
-    width: 55%;
+    width: 60%;
     height: 100%;
     background-color: var(--ballot-box-screen-color);
     border-radius: 5px;
@@ -63,8 +77,18 @@ export default{
     color: var(--dark=text-color);
 }
 
+.urna-tela-voto{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+}
+
+.urna-tela-voto-textos{
+    flex: 1;
+}
 .urna-tela-voto-titulo{
-        font-size: 20px;
+    font-size: 20px;
 }
 
 .urna-tela-voto-tipo{
@@ -88,5 +112,32 @@ export default{
     justify-content: center;
     align-items: center;
     font-size: 30px;
+}
+
+.urna-tela-voto-descricao {
+    margin-top: 20px;
+}
+
+.urna-tela-voto-imagem img{
+    width: 160px;
+    height: 200px;
+    border: 1px solid var(--dark-border-color);
+
+}
+.urna-tela-voto-instrucoes{
+    width: 100%;
+    border-top: 1px solid var(--dark-border-color);
+    font-size: 13px;
+    margin-top: 20ox;
+    padding-top: 10px;
+}
+
+.urna-tela-fim{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 120px;
+    width: 100%;
+    height: 100%;
 }
 </style>

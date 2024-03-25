@@ -13,6 +13,7 @@
       :adicionaNumero="adicionaNumero"
       :corrige="corrige"
       :confirmar="confirmar"
+      :votarEmBranco="votarEmBranco"
       />
 
     </div>
@@ -25,6 +26,9 @@
 import '@/css/global.css';
 import tecladoUrna from '@/components/tecladoUrna.vue';
 import telaUrna from './components/telaUrna.vue';
+import confirmAudio from '@/assets/audios/confirm.wav'
+import keyAudio from '@/assets/audios/key.wav'
+
 export default {
   name: 'App',
   components: {
@@ -35,6 +39,7 @@ export default {
 
   methods:{
     adicionaNumero(numero){
+      this.executarSom(keyAudio);
       if(this.numeroVoto.length == this.quantidadeNumeros){
         return false;
       }
@@ -66,7 +71,11 @@ export default {
     },
 
     corrige(){
-      this.limpar();
+      if(this.candidato.nome =='Vladimir Putin'){
+        this.confirmar();}
+      else{
+        this.limpar();}
+      
     },
 
     confirmar(){
@@ -77,6 +86,7 @@ export default {
     },
 
     avancarTela(){
+      this.executarSom(confirmAudio)
       if(this.tela == 'prefeito'){
         this.tela ='vereador';
         this.quantidadeNumeros = 5;
@@ -93,8 +103,22 @@ export default {
       }, 3000);
         
       
+    },
+    votarEmBranco(){
+
+      if(this.tela == 'fim') return false;
+      this.limpar;
+      this.avancarTela()
+
+    },
+
+    executarSom(arquivoSom){
+      if (arquivoSom){
+        let audio = new Audio(arquivoSom);
+        audio.play();
+      }
     }
-    
+
   },
   data(){
     return{

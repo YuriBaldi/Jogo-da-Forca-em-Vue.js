@@ -74,6 +74,7 @@ export default {
       if(this.candidato.nome =='Vladimir Putin'){
         this.confirmar();}
       else{
+        this.executarSom(keyAudio);
         this.limpar();}
       
     },

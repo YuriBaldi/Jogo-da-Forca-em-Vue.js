@@ -131,11 +131,11 @@ export default {
   margin-left: 1100px;
   border: 2px solid #1abc9c;
   border-radius: 15px;
-  transition: 0.2s opacity;
 }
 
 .urna{
   text-decoration: none;
+  transition: 0.2s opacity;
 }
 
 .urna:hover{

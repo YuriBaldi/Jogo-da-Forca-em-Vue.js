@@ -1,6 +1,8 @@
 <template>
+  <div class="urna-eletronica">
+    <a href="https://urna-eletronica-em-vue-js.vercel.app/" class="urna"> Ir para Urna Eletronica</a>
+  </div>
   <div id="app">
-
     <h1>Jogo da Forca</h1>
 
     <section v-if = "tela === 'inicio'" id="inicio">
@@ -120,5 +122,23 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.urna-eletronica{
+  font-size: 15px;
+  padding: 15px;
+  margin-top: 15px;
+  margin-left: 1100px;
+  border: 2px solid #1abc9c;
+  border-radius: 15px;
+  transition: 0.2s opacity;
+}
+
+.urna{
+  text-decoration: none;
+}
+
+.urna:hover{
+  opacity: 0.8;
 }
 </style>
